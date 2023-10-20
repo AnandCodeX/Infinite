@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { BookType } from './type';
+import { BookType } from './type.ts';
 
 type SingleBookPropsType = {
   bookDetail: BookType;
@@ -11,14 +11,14 @@ export const SingleBook = forwardRef<HTMLDivElement, SingleBookPropsType>(
     const refData = lastBookRef ? { ref: lastBookRef } : {};
 
     return (
-      <article className="single-book" {...refData}>
+      <article className="single-book" {...refData} data-testid="single-book">
         <div className="single-book-card">
-          <input
+          <input id='single-book-checkbox'
             value={bookDetail.id}
             type="checkbox"
             onChange={handleChange}
           />
-          <img
+          <img 
             className="single-book-image"
             src={bookDetail.formats['image/jpeg']}
           />

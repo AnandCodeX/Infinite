@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import { getBooksByPage } from '../api/getBooksByPage.ts';
+import { BookResultType, BookType, ErrorType } from '../components/type.ts';
 
-import { getBooksByPage } from '../api/getBooksByPage';
-import { BookResultType, BookType, ErrorType } from '../type';
-
-const useBooks = (pageNum = 1) => {
+/**
+ * fetches a list of books from an API based on the provided page number. It manages the state of the fetched data, loading status, error status, and pagination.
+ * pageNumber:api page number of the books to fetch.
+ */
+const useBooks = (pageNumber) => {
   const [results, setResults] = useState<BookType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -17,8 +20,7 @@ const useBooks = (pageNum = 1) => {
 
     const controller = new AbortController();
     const { signal } = controller;
-
-    getBooksByPage(pageNum, { signal })
+    getBooksByPage(pageNumber, { signal })
       .then((data: BookResultType) => {
         console.log('this is data', data);
         setResults((prev) => [...prev, ...data.results]);
@@ -33,7 +35,7 @@ const useBooks = (pageNum = 1) => {
       });
 
     return () => controller.abort();
-  }, [pageNum]);
+  }, [pageNumber]);
 
   return { isLoading, isError, error, results, hasNextPage };
 };

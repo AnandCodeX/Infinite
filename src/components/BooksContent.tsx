@@ -1,10 +1,10 @@
-import useBooks from './useBooks';
+import useBooks from '../hooks/useBooks.tsx';
 import { useCallback, useRef, useState } from 'react';
-
-import { BooksList } from '../BooksList';
+import { BooksList } from './BooksList.tsx';
+import { BookListHeader } from './BookListHeader.tsx';
 
 export const BooksContent = () => {
-  const [selectedBookCount, setSelectedBookCount] = useState(0);
+  const [selectedBooksCount, setSelectedBooksCount] = useState(0);
   const [pageNum, setPageNum] = useState(1);
   const { isLoading, isError, error, results, hasNextPage } = useBooks(pageNum);
   const intObserver = useRef<IntersectionObserver | null>();
@@ -30,21 +30,14 @@ export const BooksContent = () => {
   return (
     <div className="main-div">
       <div className="main-book">
-        <div className="main-header">
-          <header className="book-header">
-            <h2>Books</h2>
-          </header>
-          <div className="book-count">
-            <h4>
-              {results.length} Books ({selectedBookCount} selected)
-            </h4>
-            <button className="clear-button">clear selection</button>
-          </div>
-        </div>
+        <BookListHeader
+          totalBooksCount={results.length}
+          selectedBooksCount={selectedBooksCount}
+        />
         <BooksList
           books={results}
           lastBookRef={lastBookRef}
-          setSelectedBookCount={setSelectedBookCount}
+          setSelectedBookCount={setSelectedBooksCount}
         />
         {isLoading ? <div>Loading....</div> : null}
       </div>

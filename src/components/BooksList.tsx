@@ -1,5 +1,5 @@
-import { SingleBook } from './SingleBook';
-import { BookType } from './type';
+import { SingleBook } from './SingleBook.tsx';
+import { BookType } from './type.ts';
 
 type BooksListPropsType = {
   books: BookType[];

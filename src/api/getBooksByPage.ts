@@ -1,9 +1,8 @@
 const baseURL = 'https://gutendex.com/books';
-// export const api = axios.create({
-//   baseURL,
-// });
 
 export const getBooksByPage = async (pageNumber = 1, options = {}) => {
-  const response = await fetch(`${baseURL}/?page=${pageNumber}`, options);
+  let page = pageNumber;
+  if (page < 1) page = 1;
+  const response = await fetch(`${baseURL}/?page=${page}`, options);
   return await response.json();
 };

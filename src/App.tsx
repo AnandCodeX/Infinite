@@ -1,6 +1,5 @@
-import './App.css';
-import { BooksContent } from './hooks/BooksContent';
-
+import { BooksContent } from './components/BooksContent.tsx';
+import './App.css'
 function App() {
   return <BooksContent />;
 }
